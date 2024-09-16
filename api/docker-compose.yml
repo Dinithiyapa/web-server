@@ -1,12 +1,24 @@
-api:
-  image: node:latest
-  ports:
-    - "5000:5000"
-  volumes:
-    - ./:/app/
-  working_dir: /app
-  command: npm start
 
-  environment:
-    - PORT=${API_PORT}
-    - DB=${API_DB}
+services:
+  api:
+ 
+    networks:
+      - app-network
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+
+  db:
+    
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: 557768
+      POSTGRES_DB: mydatabase
+    networks:
+      - app-network
+
+networks:
+  app-network:  # This defines the network used by the services
+    driver: bridge
+

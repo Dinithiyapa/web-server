@@ -1,12 +1,14 @@
-web:
-  image: node:latest
-  ports:
-    - "5000:5000"
-  volumes:
-    - ./:/app/
-  working_dir: /app
-  command: npm start
-  environment:
-    - PORT=${WEB_PORT}
-    - API_HOST=${API_HOST}
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+db:
+    image: 'postgres'
+    ports:
+      - '4444:5432'
+    environment:
+      POSTGRES_USER: 'database'
+      POSTGRES_PASSWORD: '557768'
 
